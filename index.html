@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tanu & Subho · vintage crush</title>
+    <!-- aesthetic font: handwritten & old-style -->
+    <link href="https://fonts.googleapis.com/css2?family=La+Belle+Aurore&family=Nothing+You+Could+Do&family=Special+Elite&display=swap" rel="stylesheet">
+    <!-- font awesome for cute emojis (fallback) + icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* vintage colour palette – dusty rose, sepia, soft cream */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #fdfaf3;  /* old paper */
+            background-image: repeating-linear-gradient(45deg, rgba(200,170,140,0.03) 0px, rgba(200,170,140,0.03) 2px, transparent 2px, transparent 6px);
+            font-family: 'Nothing You Could Do', 'La Belle Aurore', 'Courier New', cursive, sans-serif;
+            color: #4e3e3a;
+            padding: 2rem 1rem;
+            line-height: 1.6;
+            position: relative;
+        }
+
+        /* vintage overlay – subtle grunge */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="1" stitchTiles="stitch"/></filter><rect width="100" height="100" filter="url(%23noise)" opacity="0.06"/></svg>');
+            pointer-events: none;
+            z-index: 999;
+        }
+
+        .page {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: rgba(255, 252, 240, 0.7);
+            backdrop-filter: blur(1px);
+            border: 1px solid #dccfc7;
+            box-shadow: 10px 14px 18px -8px rgba(100, 70, 50, 0.1);
+            padding: 2.2rem 2rem;
+            border-radius: 3px 20px 3px 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* vintage labels & titles */
+        h1, h2 {
+            font-family: 'Special Elite', 'La Belle Aurore', cursive;
+            font-weight: 400;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-size: 1.4rem;
+            color: #785a4a;
+            border-bottom: 1.5px dashed #b9a094;
+            display: inline-block;
+            padding-bottom: 0.2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* hand written headings */
+        .handwritten {
+            font-family: 'La Belle Aurore', cursive;
+            font-size: 2.2rem;
+            color: #91634e;
+            text-shadow: 2px 2px 3px rgba(180, 130, 100, 0.1);
+            margin-bottom: 0.2rem;
+            border-bottom: none;
+            text-transform: none;
+            word-break: break-word;
+        }
+
+        .heart-emojis {
+            font-size: 1.7rem;
+            color: #b16262;
+            margin: 0 5px;
+        }
+
+        /* polaroid style gallery — 7 photos */
+        .photo-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 1.8rem 1.2rem;
+            margin: 2.8rem 0 2.5rem;
+            justify-items: center;
+        }
+
+        .polaroid {
+            background: #fefaf0;
+            padding: 0.8rem 0.8rem 1.8rem 0.8rem;
+            box-shadow: 0 6px 12px rgba(120, 80, 60, 0.08), 0 2px 5px rgba(0,0,0,0.03);
+            border: 1px solid #ede3db;
+            transform: rotate(var(--rot, 0deg));
+            transition: all 0.25s ease-in-out;
+            width: 100%;
+            max-width: 210px;
+            border-radius: 1px 20px 1px 1px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        .polaroid:hover {
+            transform: rotate(0deg) scale(1.03);
+            box-shadow: 10px 16px 20px rgba(80, 50, 30, 0.12);
+            border-color: #c4afa4;
+        }
+
+        .polaroid img {
+            width: 100%;
+            height: 170px;
+            object-fit: cover;
+            border: 1px solid #e7dbd1;
+            border-radius: 1px;
+            filter: sepia(0.45) contrast(0.93) brightness(1.04);
+            transition: filter 0.3s;
+        }
+
+        .polaroid img:hover {
+            filter: sepia(0.2) contrast(1.02);
+        }
+
+        .caption {
+            margin-top: 0.7rem;
+            font-family: 'Nothing You Could Do', cursive;
+            font-size: 0.9rem;
+            color: #775d53;
+            letter-spacing: 1.2px;
+            border-top: 0.5px dashed #cab9b1;
+            padding-top: 0.6rem;
+            width: 100%;
+            text-align: center;
+        }
+
+        /* individual rotation for vintage feeling */
+        .polaroid:nth-child(1) { --rot: -1.3deg; }
+        .polaroid:nth-child(2) { --rot: 2.4deg; }
+        .polaroid:nth-child(3) { --rot: -2.8deg; }
+        .polaroid:nth-child(4) { --rot: 1.8deg; }
+        .polaroid:nth-child(5) { --rot: -1.9deg; }
+        .polaroid:nth-child(6) { --rot: 3.1deg; }
+        .polaroid:nth-child(7) { --rot: -2.2deg; }
+
+        /* love letter — vintage paper */
+        .love-letter {
+            background: #fffcf7;
+            border: 1px solid #ddd0c7;
+            padding: 2.2rem 2rem;
+            margin: 2.5rem 0 1.2rem;
+            box-shadow: inset 0 0 18px #f1ebe6, 8px 8px 0 #e1d4cc40;
+            font-family: 'Nothing You Could Do', 'La Belle Aurore', cursive;
+            font-size: 1.25rem;
+            color: #4a3832;
+            border-radius: 2px 30px 2px 30px;
+            position: relative;
+            background-image: linear-gradient(to bottom, rgba(220,190,170,0.05), rgba(245,235,220,0.2));
+            word-wrap: break-word;
+        }
+
+        .letter-head {
+            display: flex;
+            align-items: baseline;
+            gap: 10px;
+            color: #a66a5c;
+            font-size: 1.7rem;
+        }
+
+        .letter-body {
+            white-space: pre-wrap;
+            line-height: 1.9;
+            margin-top: 0.7rem;
+            font-weight: 400;
+            text-shadow: 0.4px 0.4px 0 rgba(255,255,255,0.8);
+        }
+
+        .letter-signature {
+            margin-top: 1.8rem;
+            text-align: right;
+            font-size: 1.7rem;
+            font-family: 'La Belle Aurore', cursive;
+            color: #7a5547;
+            border-top: 1px dashed #cbaaa0;
+            padding-top: 1.1rem;
+        }
+
+        /* music player – minimal vintage */
+        .music-box {
+            background: #e7dbcf57;
+            padding: 0.8rem 1.2rem;
+            border-radius: 40px 8px 40px 8px;
+            border: 1px solid #d1bcb0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            backdrop-filter: blur(3px);
+            color: #5b4440;
+        }
+
+        .music-icon {
+            font-size: 1.6rem;
+        }
+
+        audio {
+            opacity: 0.75;
+            filter: sepia(0.6);
+            width: 240px;
+            height: 38px;
+            border-radius: 50px;
+        }
+
+        /* cute emoji line */
+        .emoji-line {
+            font-size: 1.7rem;
+            word-spacing: 0.9rem;
+            margin: 1.2rem 0 0.8rem;
+            color: #aa7a6b;
+            text-align: center;
+        }
+
+        /* footer */
+        .vintage-footer {
+            margin-top: 2rem;
+            text-align: center;
+            color: #988078;
+            font-size: 1rem;
+            border-top: 1px dashed #ccb9b0;
+            padding-top: 1.5rem;
+        }
+
+        /* responsiveness */
+        @media (max-width: 650px) {
+            .page { padding: 1.5rem 1rem; }
+            .handwritten { font-size: 1.8rem; }
+        }
+
+        /* handwritten name special */
+        .tanu-name {
+            background: #ffe8e1;
+            padding: 0.1rem 0.6rem;
+            border-radius: 30px 6px 30px 6px;
+            font-style: italic;
+        }
+        .subho-name {
+            font-weight: bold;
+            color: #7b5e55;
+        }
+        i, em { color: #a17061; }
+    </style>
+</head>
+<body>
+    <div class="page">
+
+        <!-- vintage music player – "those eyes" bg music -->
+        <div class="music-box">
+            <span class="music-icon"><i class="fas fa-gramophone"></i> 🎵📻</span>
+            <span style="font-family: 'Special Elite'; margin: 0 5px;">those eyes</span>
+            <audio controls autoplay loop>
+                <!-- background music: "Those Eyes" – for the demo we use a public piano tribute. 
+                     Replace with your local file "those-eyes.mp3" or any online version. 
+                     It's set to loop and autoplay with vintage vibes -->
+                <source src="https://files.freemusicarchive.org/storage-freemusicarchive-org/music/no_curator/Scott_Gratton/Retro_Classics/Scott_Gratton_-_03_-_Swing_Swing_Paradise.mp3" type="audio/mpeg">
+                <!-- fallback: if the online track doesn't load, show friendly message -->
+                Your browser doesn't support the vintage audio element. 🎼
+            </audio>
+            <span style="margin-left: 5px;">🎶🎧</span>
+        </div>
+        <!-- note: since "Those Eyes" by official artist isn't freely available, I used an instrumental swing that feels vintage. 
+             you can easily replace the src with "those-eyes.mp3" in the same folder.  -->
+        
+        <!-- HEADER with her beautiful name 💌 -->
+        <div style="display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;">
+            <h1 class="handwritten"> 
+                <span class="tanu-name">🌸 Tanu (Ainoor) 🌸</span>
+            </h1>
+            <span class="heart-emojis">✨💖✨</span>
+        </div>
+        <p style="font-size: 1.3rem; color: #846158; margin-top: -0.3rem;">
+            <i class="fas fa-feather-alt"></i> for my crush, my girlfriend, my forever . . . 
+        </p>
+        
+        <!-- 7 POLAROID PHOTOS — image names: 1st.jpg, photo6.jpg, and others as per instruction.
+             use placeholder images with vintage sepia; REPLACE src with your actual image files -->
+        <div class="photo-gallery">
+            <!-- photo 1: 1st.jpg  -->
+            <div class="polaroid">
+                <img src="https://placekitten.com/220/180?random=11" alt="Tanu - 1st">
+                <div class="caption">💌 first crush · 1st.jpg</div>
+            </div>
+            <!-- photo 2: photo6.jpg  (explicitly mentioned) -->
+            <div class="polaroid">
+                <img src="https://placekitten.com/220/181?random=26" alt="Tanu - photo6">
+                <div class="caption">🌼 photo6.jpg · golden</div>
+            </div>
+            <!-- photos 3 to 7: I name them them with vintage style (all her photos) -->
+            <div class="polaroid">
+                <img src="https://placekitten.com/218/180?random=31" alt="Tanu smile">
+                <div class="caption">🌷 ainoor · 2023</div>
+            </div>
+            <div class="polaroid">
+                <img src="https://placekitten.com/221/179?random=44" alt="Tanu dreamy">
+                <div class="caption">🍂 two years ago</div>
+            </div>
+            <div class="polaroid">
+                <img src="https://placekitten.com/219/182?random=55" alt="Tanu soft">
+                <div class="caption">☕️ 5 months gf</div>
+            </div>
+            <div class="polaroid">
+                <img src="https://placekitten.com/222/178?random=63" alt="Tanu vintage">
+                <div class="caption">🕰️ those eyes</div>
+            </div>
+            <div class="polaroid">
+                <img src="https://placekitten.com/217/183?random=77" alt="Tanu love">
+                <div class="caption">🤍 my crush, my girl</div>
+            </div>
+        </div>
+        
+        <!-- explanation: images are placeholder cats, but you MUST replace the src with her actual photos.
+             the filenames: exactly "1st.jpg" and "photo6.jpg" and others. check next process below.  -->
+        
+        <!-- CUTE EMOJI DIVIDER  -->
+        <div class="emoji-line">
+            🥀 • ✉️ • 💭 • 🕯️ • 📜 • 💕
+        </div>
+        
+        <!-- ✨💖 HAND-WRITTEN LOVE LETTER for Tanu 💖✨ -->
+        <div class="love-letter">
+            <div class="letter-head">
+                <span>💞🕊️</span> My dearest Tanu (Ainoor), 
+                <span>🕊️💞</span>
+            </div>
+            <div class="letter-body">
+                Two years. Two whole years I kept your smile hidden in the corner of my heart, like an old photograph tucked in a leather wallet. I still remember the first time I saw you — the world turned sepia, and there you were. I called you my crush, silently, every single day. 💘
+
+                And now, five months of you being my girlfriend, and my heart still races like it’s that very first day. You’re the poetry I never knew how to write, the melody I always hummed. Every photo of yours — 1st, photo6, and every candid frame — holds a universe I want to live in. 🌙
+
+                Tanu, Ainoor... your name itself sounds like warm candlelight. You’ve turned my ordinary days into vintage love letters. With you, even silence feels like a soft waltz. I promise to always look at you the way I did when you were just my crush — except now, I get to hold your hand. 🤍
+
+                I love you. More than all the stars in this sepia sky.  
+                Forever yours,  
+                Subho    
+            </div>
+            <div class="letter-signature">
+                <i class="fas fa-crown"></i> your Subho 🌹✍️
+            </div>
+        </div>
+        
+        <!-- tiny footer with love and emojis -->
+        <div class="vintage-footer">
+            <span style="font-size: 1.5rem;">🎞️💫🧸</span> <br/>
+            made with vintage soul & endless love — for Tanu, from Subho <br/>
+            <span style="font-family: 'La Belle Aurore';"> 5 months + infinity </span> 
+            <span style="font-size: 1.3rem;">✨🍃</span>
+        </div>
+    </div>
+
+    <!-- tiny script for gentle animations (fade in) -->
+    <style>
+        /* soft entrance animation */
+        .page {
+            animation: fadeIn 2.2s ease;
+        }
+        @keyframes fadeIn {
+            0% { opacity: 0.5; transform: translateY(6px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        .polaroid {
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s;
+        }
+        .love-letter {
+            transition: box-shadow 0.3s;
+        }
+        .love-letter:hover {
+            box-shadow: inset 0 0 28px #f1d9ce40, 10px 12px 0 #dac2b6;
+        }
+        /* custom audio style */
+        audio::-webkit-media-controls-panel {
+            background-color: #f5e7df;
+            border-radius: 30px;
+        }
+    </style>
+
+    <!--  notes: 
+         1. Replace placeholder kitten image URLs with your 7 photos: 
+            for '1st.jpg', 'photo6.jpg' and others. 
+            put them in same folder (e.g., "images/1st.jpg") and update src="images/1st.jpg" etc.
+         2. Music: if you have "those eyes" MP3 file, replace the src with "those-eyes.mp3".
+            I used a generic swing song as demo — vintage feel.m
+         3. Everything is fully responsive and aesthetic.
+    -->
+</body>
+</html>
